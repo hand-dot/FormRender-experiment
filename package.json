@@ -1,0 +1,22 @@
+{
+  "name": "stackblitz-starters-s8pyyd",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@types/react": "18.2.23",
+    "@types/react-dom": "18.2.8",
+    "antd": "4.x || 5.x",
+    "form-render": "^2.2.16",
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
+  "devDependencies": {
+    "react-scripts": "latest"
+  }
+}
