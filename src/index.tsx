@@ -1,43 +1,19 @@
-import React from 'react';
-import FormRender, { useForm } from 'form-render';
+import { createRoot } from 'react-dom/client';
+import App from './App';
 
-const schema = {
-  type: 'object',
-  properties: {
-    input: {
-      title: '输入框',
-      type: 'string',
-      widget: 'input',
-    },
-    select: {
-      title: '下拉框',
-      type: 'string',
-      widget: 'select',
-      props: {
-        options: [
-          { label: '早', value: 'a' },
-          { label: '中', value: 'b' },
-          { label: '晚', value: 'c' },
-        ],
-      },
-    },
-  },
-};
-
-export default () => {
-  const form = useForm();
-
-  const onFinish = (formData) => {
-    console.log('formData:', formData);
-  };
-
-  return (
-    <FormRender
-      form={form}
-      schema={schema}
-      onFinish={onFinish}
-      maxWidth={360}
-      footer={true}
-    />
-  );
-};
+const container = document.getElementById('app');
+const root = createRoot(container); // createRoot(container!) if you use TypeScript
+root.render(
+    <div>
+        <div style={{
+            width: 300,
+            margin: '1rem',
+            marginLeft: 'auto',
+            padding: '1rem',
+            border: '1px solid #eee',
+            borderRadius: 5,
+            background: '#fff',
+        }}>
+            <App />
+        </div>
+    </div>);
