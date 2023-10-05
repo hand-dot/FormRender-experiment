@@ -14,3 +14,13 @@ h1 {
   font-weight: 800;
   font-size: 1.5rem;
 }
+
+
+.pdfme-test {
+  background-color: red;
+}
+
+.pdfme-test label {
+  font-size: 12px !important;
+  background: blue;
+}

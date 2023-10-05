@@ -1,8 +1,11 @@
+import { ConfigProvider } from 'antd';
 import FormRender, { useForm, Schema } from 'form-render';
 
 // TODO
-// - フォントサイズはどのように調整するのか
-// - selectの値を変更しても、onChangeが呼ばれない
+// - alignのようなenumはどのように扱うのか -> widgetを作って
+//   https://xrender.fun/form-render/advanced-widget#%E4%BB%80%E4%B9%88%E6%98%AF-widget
+// - ラベルのフォントサイズはどのように調整するのか -> labelを変えつつ、design-tokenをカスタマイズする
+//   https://ant.design/docs/react/customize-theme#customize-design-token
 
 const App = () => {
   const form = useForm();
@@ -34,15 +37,22 @@ const App = () => {
         widget: 'button',
         cellSpan: 2,
       },
-      x: {
-        title: 'X',
-        type: 'number',
-        widget: 'inputNumber',
-      },
-      y: {
-        title: 'Y',
-        type: 'number',
-        widget: 'inputNumber',
+      position: {
+        type: 'object',
+        widget: 'card',
+        column: 2,
+        properties: {
+          x: {
+            title: 'X',
+            type: 'number',
+            widget: 'inputNumber',
+          },
+          y: {
+            title: 'Y',
+            type: 'number',
+            widget: 'inputNumber',
+          },
+        }
       },
       width: {
         title: 'Width',
@@ -68,7 +78,8 @@ const App = () => {
         span: 8,
       },
       horizontalAlign: {
-        title: 'Horizontal Align',
+        title: 'H-Align',
+        className: 'pdfme-test',
         type: 'string',
         widget: 'select',
         props: {
@@ -81,7 +92,7 @@ const App = () => {
         span: 8,
       },
       verticalAlign: {
-        title: 'Vertical Align',
+        title: 'V-Align',
         type: 'string',
         widget: 'select',
         props: {
@@ -106,7 +117,7 @@ const App = () => {
         span: 8
       },
       characterSpacing: {
-        title: 'Character Spacing',
+        title: 'Char Spc',
         type: 'number',
         widget: 'inputNumber',
         span: 8
@@ -118,13 +129,13 @@ const App = () => {
         cellSpan: 2,
       },
       fontSizeMin: {
-        title: 'Font Size Min',
+        title: 'Size Min',
         type: 'number',
         widget: 'inputNumber',
         span: 8,
       },
       fontSizeMax: {
-        title: 'Font Size Max',
+        title: 'Size Max',
         type: 'number',
         widget: 'inputNumber',
         span: 8,
@@ -145,22 +156,40 @@ const App = () => {
     }
   };
 
-  return (
-    <div>
-      <FormRender
-        form={form}
-        schema={schema}
-        onChange={event => {
-          console.log('form.getValues();', form.getValues());
-          console.log('onChange data:', event);
-        }}
-        onSelect={event => {
-          console.log('form.getValues();', form.getValues());
-          console.log('onSelect data:', event);
-        }}
+  form.setValues({
+    type: 'Option2',
+    name: 'Name',
+    align: 'Align',
+    position: { x: 0, y: 0 },
+    width: 0,
+    height: 0,
+    fontname: 'Arial',
+    horizontalAlign: 'left',
+    verticalAlign: 'top',
+    fontSize: 0,
+    lineHeight: 0,
+    characterSpacing: 0,
+    useDynamicFontSize: false,
+    fontSizeMin: 0,
+    fontSizeMax: 0,
+    fit: 'Fit1'
+  });
 
-      />
-    </div>
+  return (
+    <ConfigProvider theme={{ token: { fontSize: 13 } }}>
+      <div>
+        <FormRender
+          form={form}
+          schema={schema}
+          watch={{
+            '#': (allValues) => {
+              console.log('watch all:', allValues);
+            }
+          }}
+          locale='en-US'
+        />
+      </div>
+    </ConfigProvider>
   );
 };
 
